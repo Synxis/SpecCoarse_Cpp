@@ -4,10 +4,24 @@ This is the C++ implementation of "Spectral Coarsening of Geometric Operators" [
 ### Installation
 Our code is developed on MacOS, we provide the commands for installing SpecCoarse in MacOS: 
 
-Clone the repository 
+Assuming your libigl is installed and compiled in `/usr/local/libigl`, the first step is to clone the SpecCoarse_Cpp repository to `/usr/local/`
 ```
-git clone https://github.com/Yixin-Hu/TetWild
+git clone https://github.com/HTDerekLiu/SpecCoarse_Cpp.git
 ```
+
+Now assume you are in the directory `/usr/local/SpecCoarse_Cpp/`, then you can compile the code via cmake
+```
+mkdir build
+cd build
+cmake ..
+make
+```
+
+Once the installation is completed, you can run the code by
+```
+./specCoarsen_bin [path/to/XXX.obj] [m] [k] [lr] [lrReduce]
+```
+
 
 ### bibtex
 ```
