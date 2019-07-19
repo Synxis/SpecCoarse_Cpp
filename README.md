@@ -1,5 +1,5 @@
 # Spectral Coarsening
-This is the C++ implementation of "Spectral Coarsening of Geometric Operators" [Liu et al. 2019]. The dependencies are libigl ```https://libigl.github.io``` and Spectra ```https://spectralib.org```.
+This is the C++ implementation of "Spectral Coarsening of Geometric Operators" [Liu et al. 2019]. The dependencies are libigl ```https://libigl.github.io``` and Spectra ```https://spectralib.org```, where the Spectra has been added to the `./external/` folder. 
 
 ### Installation
 Our code is developed on MacOS, we provide the commands for installing SpecCoarse in MacOS: 
