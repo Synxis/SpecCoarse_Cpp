@@ -1,6 +1,5 @@
 // libigl includes
 #include <igl/readOBJ.h>
-#include <igl/opengl/glfw/Viewer.h>
 #include <igl/doublearea.h>
 #include <igl/cotmatrix.h>
 #include <igl/massmatrix.h>
@@ -304,9 +303,4 @@ int main(int argc, char *argv[])
 			fMatFile << fMap.row(ii).head(k) << "\n";
 		fMatFile.close();
 	}
-
-	// // Plot the mesh
-	// igl::opengl::glfw::Viewer viewer;
-	// viewer.data().set_mesh(V, F);
-	// viewer.launch();
 }
