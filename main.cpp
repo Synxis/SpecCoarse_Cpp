@@ -1,5 +1,5 @@
 // libigl includes
-#include <igl/readOBJ.h>
+#include <igl/read_triangle_mesh.h>
 #include <igl/doublearea.h>
 #include <igl/cotmatrix.h>
 #include <igl/massmatrix.h>
@@ -7,16 +7,16 @@
 #include <igl/randperm.h>
 
 // project code includes
-#include <strength_of_connection.h>
-#include <combinatorial_coarsening.h>
-#include <sp_cwiseSqrt.h>
-#include <sp_cwiseInverse.h>
-#include <projection_mat.h>
-#include <get_sparsity.h>
-#include <eigs_diagmass.h>
-#include <init_null_projection.h>
-#include <null_proj.h>
-#include <print_spmat.h>
+#include "src/strength_of_connection.h"
+#include "src/combinatorial_coarsening.h"
+#include "src/sp_cwiseSqrt.h"
+#include "src/sp_cwiseInverse.h"
+#include "src/projection_mat.h"
+#include "src/get_sparsity.h"
+#include "src/eigs_diagmass.h"
+#include "src/init_null_projection.h"
+#include "src/null_proj.h"
+#include "src/print_spmat.h"
 
 // other includes
 #include <iostream>
@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
 	MatrixXi F;
 	{
 		std::stringstream ss;
-		igl::readOBJ(meshPath, V, F);
+		igl::read_triangle_mesh(meshPath, V, F);
 		assert(V.rows() > 0);
 
 		// normalize to unit surface area
