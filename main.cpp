@@ -39,10 +39,10 @@ int main(int argc, char *argv[])
 
 	// input argument parsing
 	if (argc != 6)
- 	{
- 		cout << "./specCoarsen_bin [meshPath] [m] [k] [lr] [lrReduce]" << endl;
- 		assert(false);
- 	}
+	{
+		cout << "./specCoarsen_bin [meshPath] [m] [k] [lr] [lrReduce]" << endl;
+		return 1;
+	}
 	else
 	{
 		meshPath = argv[1];
@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
 		k = atoi(argv[3]);
 		lr = atof(argv[4]);
 		lrReduce = atoi(argv[5]);
-		cout << "===================" << endl;
+		cout << "=========================================================" << endl;
 		cout << "meshPath: " << meshPath << endl;
 		cout << "number of vertices in the coarsened mesh: " << m << endl;
 		cout << "number of eigenvectors in use: " << k << endl;

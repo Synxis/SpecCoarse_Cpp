@@ -27,3 +27,5 @@ target_link_libraries(specCoarsen
 	PUBLIC eigen
 	PUBLIC libigl
 	PUBLIC spectra)
+set_target_properties(specCoarsen PROPERTIES
+	RUNTIME_OUTPUT_DIRECTORY $<1:${CMAKE_CURRENT_LIST_DIR}/bin>)
