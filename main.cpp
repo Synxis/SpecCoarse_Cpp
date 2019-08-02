@@ -24,6 +24,38 @@
 #include <string>
 #include <stdlib.h>
 
+template<typename Derived>
+void save_matrix_ascii(const std::string& filename, const Eigen::DenseBase<Derived>& mat, char sep = ',')
+{
+	std::ofstream out(filename);
+	out.precision(14);
+	for(Eigen::Index r = 0; r < mat.rows(); r++)
+	{
+		for(Eigen::Index c = 0; c < mat.cols(); c++)
+			if(c == 0) out << mat(r, c);
+			else out << sep << mat(r, c);
+		out << '\n';
+	}
+	printf("Saved dense matrix in '%s'\n", filename.c_str());
+}
+
+template<typename Scalar, int Options, typename StorageIndex>
+void save_matrix_ascii(const std::string& filename, const Eigen::SparseMatrix<Scalar, Options, StorageIndex>& mat, char sep = '\t')
+{
+	using SpMat = Eigen::SparseMatrix<Scalar, Options, StorageIndex>;
+	std::ofstream out(filename);
+	out.precision(14);
+	bool max_pos = false;
+	for(int outer = 0; outer < mat.outerSize(); outer++)
+		for(SpMat::InnerIterator it(mat, outer); it; ++it)
+		{
+			out << (it.row() + 1) << sep << (it.col() + 1) << sep << it.value() << '\n';
+			if(it.row() + 1 == mat.rows() && it.col() + 1 == mat.cols()) max_pos = true;
+		}
+	if(!max_pos) out << mat.rows() << sep << mat.cols() << sep << "0.0\n";
+	printf("Saved sparse matrix in '%s'\n", filename.c_str());
+}
+
 std::string meshPath;
 int m; // number of vertices in the coarsened mesh
 int k; // number of eigenvectors used in the optimization
@@ -295,12 +327,9 @@ int main(int argc, char *argv[])
 		}
 		MatrixXd fMap = eVecc.transpose() * Mc * ptMap.transpose() * eVec;
 
-		ofstream fMatFile;
-		std::stringstream outss;
-		outss << "../output_fmap.txt";
-		fMatFile.open (outss.str());
-		for (int ii = 0; ii < k; ii ++)
-			fMatFile << fMap.row(ii).head(k) << "\n";
-		fMatFile.close();
+		save_matrix_ascii("result-Mc.txt", Mc);
+		save_matrix_ascii("result-Lc.txt", Lc);
+		save_matrix_ascii("result-P.txt", P);
+		save_matrix_ascii("output_fmap.txt", fMap);
 	}
 }
