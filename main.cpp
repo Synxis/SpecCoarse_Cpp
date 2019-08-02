@@ -22,6 +22,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <chrono>
 #include <stdlib.h>
 
 template<typename Derived>
@@ -65,6 +66,7 @@ int lrReduce = 0; // number of times to reduce learning rate
 
 int main(int argc, char *argv[])
 {
+	using clock = std::chrono::high_resolution_clock;
 	using namespace Eigen;
 	using namespace std;
 	srand(1);
@@ -106,6 +108,8 @@ int main(int argc, char *argv[])
 		V *= 50; // increase numberics
 		cout << "number of vertices in the original mesh: " << V.rows() << endl;
 	}
+
+	const clock::time_point TS = clock::now();
 
 	// compute the Laplace operator and the mass matrix
 	SparseMatrix<double> L, M, invM;
@@ -302,6 +306,8 @@ int main(int argc, char *argv[])
 		}
 	}
 
+	const clock::time_point TE = clock::now();
+
 	// =========================
 	// evaluation: functional map
 	// =========================
@@ -331,5 +337,6 @@ int main(int argc, char *argv[])
 		save_matrix_ascii("result-Lc.txt", Lc);
 		save_matrix_ascii("result-P.txt", P);
 		save_matrix_ascii("output_fmap.txt", fMap);
+		std::cout << "Time: " << (std::chrono::duration_cast<std::chrono::milliseconds>(TE - TS).count() / 1000.0) << " s\n";
 	}
 }
